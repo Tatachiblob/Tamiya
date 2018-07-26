@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Tamiya Web Page - Show buyer Sales</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <h1>ToysRUs Sales</h1>
+        <div id="sales"></div>
+    </body>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            fetchSales();
+        });
+        
+        function fetchSales(){
+            var getUrl = "http://localhost:8084/com.sysintg.toysrus/api/v1/sales";
+            $.ajax({
+               url: getUrl,
+               type: 'GET',
+               contentType: 'application/json',
+               success: function(data, textStatus, jqXHR){
+                   console.log("Success");
+                   console.log(data);
+                   $('#sales').html(JSON.stringify(data));
+               },
+               error: function(jqXHR, textStatus, errorThrown){
+                   console.log("error");
+                   console.log(jqXHR);
+               },
+               complete: function(jqXHR, textStatus){
+                   console.log("complete");
+                   console.log(jqXHR);
+               }
+           });
+        }
+    </script>
+</html>
